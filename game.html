@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마피아 게임</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .game-container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 게임 화면 -->
+    <div class="game-container">
+        <h1>마피아 게임에 오신 것을 환영합니다!</h1>
+        <div id="welcomeMessage" class="welcome-message"></div>
+        <button id="logoutBtn">로그아웃</button>
+    </div>
+
+    <script>
+        // 페이지 로드 시 로그인된 사용자 확인
+        window.onload = function() {
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                document.getElementById('welcomeMessage').innerText = `${userId}님, 환영합니다!`;
+            } else {
+                window.location.href = 'index.html'; // 로그인되지 않으면 로그인 페이지로 이동
+            }
+        };
+
+        // 로그아웃 버튼 클릭 이벤트 처리
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('userId'); // 로컬 스토리지에서 사용자 아이디 제거
+            window.location.href = 'index.html'; // 로그인 화면으로 이동
+        });
+    </script>
+
+</body>
+</html>
