@@ -3,42 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마피아 게임</title>
+    <title>마피아 게임 로비</title>
     <style>
         /* 기본 스타일 */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             background-color: #f4f4f4;
         }
 
-        h1 {
+        /* 상단 네비게이션 바 */
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .navbar .welcome-message {
+            font-size: 1.2rem;
+        }
+
+        /* 로비 컨텐츠 */
+        .lobby-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .lobby-container h2 {
             font-size: 2rem;
-            color: #333;
-        }
-
-        .game-container {
-            text-align: center;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        .welcome-message {
-            font-size: 1.5rem;
             margin-bottom: 20px;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 1rem;
+        .lobby-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .lobby-buttons button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
             background-color: #007bff;
             color: white;
             border: none;
@@ -46,18 +63,26 @@
             cursor: pointer;
         }
 
-        button:hover {
+        .lobby-buttons button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
-    <!-- 게임 화면 -->
-    <div class="game-container">
-        <h1>마피아 게임에 오신 것을 환영합니다!</h1>
-        <div id="welcomeMessage" class="welcome-message"></div>
-        <button id="logoutBtn">로그아웃</button>
+    <!-- 상단 네비게이션 바 -->
+    <div class="navbar">
+        <div class="welcome-message" id="welcomeMessage">[아이디]님, 마피아 게임에 오신 것을 환영합니다.</div>
+        <a href="#" id="logoutBtn">로그아웃</a>
+    </div>
+
+    <!-- 로비 컨텐츠 -->
+    <div class="lobby-container">
+        <h2>마피아 게임 로비</h2>
+        <div class="lobby-buttons">
+            <button id="createRoomBtn">방 만들기</button>
+            <button id="joinRoomBtn">방 들어가기</button>
+        </div>
     </div>
 
     <script>
@@ -65,16 +90,26 @@
         window.onload = function() {
             const userId = localStorage.getItem('userId');
             if (userId) {
-                document.getElementById('welcomeMessage').innerText = `${userId}님, 환영합니다!`;
+                document.getElementById('welcomeMessage').innerText = `${userId}님, 마피아 게임에 오신 것을 환영합니다.`;
             } else {
                 window.location.href = 'index.html'; // 로그인되지 않으면 로그인 페이지로 이동
             }
         };
 
-        // 로그아웃 버튼 클릭 이벤트 처리
+        // 로그아웃 버튼 클릭 시
         document.getElementById('logoutBtn').addEventListener('click', function() {
             localStorage.removeItem('userId'); // 로컬 스토리지에서 사용자 아이디 제거
             window.location.href = 'index.html'; // 로그인 화면으로 이동
+        });
+
+        // 방 만들기 버튼 클릭 시 (기본 구현 - 실제 방 만들기 로직을 여기에 추가할 수 있음)
+        document.getElementById('createRoomBtn').addEventListener('click', function() {
+            alert('방 만들기 기능 구현 예정');
+        });
+
+        // 방 들어가기 버튼 클릭 시 (기본 구현 - 실제 방 들어가기 로직을 여기에 추가할 수 있음)
+        document.getElementById('joinRoomBtn').addEventListener('click', function() {
+            alert('방 들어가기 기능 구현 예정');
         });
     </script>
 
