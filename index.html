@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마피아 게임</title>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .game-container {
+            text-align: center;
+        }
+
+        .welcome-message {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 로그인 화면 -->
+    <div id="loginScreen" class="container">
+        <h1>마피아 게임 로그인</h1>
+        <input type="text" id="userId" placeholder="아이디 입력" />
+        <button id="loginBtn">로그인</button>
+    </div>
+
+    <!-- 게임 화면 -->
+    <div id="gameScreen" class="container" style="display:none;">
+        <h1>마피아 게임에 오신 것을 환영합니다!</h1>
+        <div id="welcomeMessage" class="welcome-message"></div>
+        <button id="logoutBtn">로그아웃</button>
+    </div>
+
+    <script>
+        // 로그인 화면에서 ID 입력 후 로그인 버튼 클릭 시
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const userId = document.getElementById('userId').value;
+            if (userId) {
+                // 로그인 성공 시 메인 화면으로 이동
+                localStorage.setItem('userId', userId);
+                showGameScreen();
+            } else {
+                alert('아이디를 입력하세요.');
+            }
+        });
+
+        // 메인 게임 화면에서 로그아웃 버튼 클릭 시
+        document.getElementById('logoutBtn')?.addEventListener('click', function() {
+            // 로그아웃 시 로그인 화면으로 이동
+            localStorage.removeItem('userId');
+            showLoginScreen();
+        });
+
+        // 로그인 화면을 표시하고 게임 화면을 숨기는 함수
+        function showLoginScreen() {
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('gameScreen').style.display = 'none';
+        }
+
+        // 게임 화면을 표시하고 로그인 화면을 숨기는 함수
+        function showGameScreen() {
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('gameScreen').style.display = 'block';
+
+            // 메인 화면에 로그인한 사용자 ID 표시
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                document.getElementById('welcomeMessage').innerText = `${userId}님, 환영합니다!`;
+            } else {
+                showLoginScreen(); // 로그인되지 않으면 로그인 화면으로 돌아감
+            }
+        }
+
+        // 페이지 로드 시 자동으로 로그인 상태 체크
+        window.onload = function() {
+            const userId = localStorage.getItem('userId');
+            if (userId) {
+                showGameScreen(); // 이미 로그인되어 있으면 게임 화면으로 이동
+            } else {
+                showLoginScreen(); // 로그인되지 않으면 로그인 화면 표시
+            }
+        };
+    </script>
+
+</body>
+</html>
